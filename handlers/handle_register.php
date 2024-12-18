@@ -28,17 +28,17 @@ if (mb_strlen($error) > 0) {
     $stmt->execute([$email]);
     $user = $stmt->fetch();
 
-    // if ($user) {
-    //     $error = 'Error when creating!';
-    //     $_SESSION['flash']['message']['type'] = 'errorContainer';
-    //     $_SESSION['flash']['message']['text'] = $error;
-    //     $_SESSION['flash']['data'] = $_POST;
-    //     header('Location: ../index.php?page=register');
-    //     exit;
-    // }
+    if ($user) {
+        $error = 'This user already exists!';
+        $_SESSION['flash']['message']['type'] = 'errorContainer';
+        $_SESSION['flash']['message']['text'] = $error;
+        $_SESSION['flash']['data'] = $_POST;
+        header('Location: ../index.php?page=register');
+        exit;
+    }
 
     if (mb_strlen($username) < 6) {
-        $error = 'The username must be at least 4 characters!';
+        $error = 'The username must be at least 6 characters!';
         $_SESSION['flash']['message']['type'] = 'errorContainer';
         $_SESSION['flash']['message']['text'] = $error;
         $_SESSION['flash']['data'] = $_POST;
@@ -47,7 +47,7 @@ if (mb_strlen($error) > 0) {
     }
 
     if (mb_strlen($email) < 4) {
-        $error = 'The email must be at least 2 characters!';
+        $error = 'The email must be at least 4 characters!';
         $_SESSION['flash']['message']['type'] = 'errorContainer';
         $_SESSION['flash']['message']['text'] = $error;
         $_SESSION['flash']['data'] = $_POST;
